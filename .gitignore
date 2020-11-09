@@ -13,3 +13,7 @@ meta/*.json
 
 # data
 data/
+
+
+# scripts
+scripts/
