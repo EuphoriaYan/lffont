@@ -7,3 +7,6 @@
 # Test
 test/
 test.py
+
+# Other meta
+meta/*.json
