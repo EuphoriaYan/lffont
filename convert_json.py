@@ -4,6 +4,7 @@ import argparse
 from pprint import pprint
 from fontTools.ttLib import TTFont
 import random
+from tqdm import tqdm
 
 
 def processGlyphNames(GlyphNames):
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     # ['font_name', 'font_pth', 'missing', 'fake']
     dst_json = dict()
 
-    for font_json in font_missing_json:
+    for font_json in tqdm(font_missing_json):
         font_json_new = dict()
         font_path = font_json['font_pth']
         ttfont = TTFont(font_path)
