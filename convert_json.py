@@ -2,6 +2,30 @@
 import json
 import argparse
 from pprint import pprint
+from fontTools.ttLib import TTFont
+import random
+
+
+def processGlyphNames(GlyphNames):
+    res = set()
+    for char in GlyphNames:
+        if char.startswith('uni'):
+            char = char[3:]
+        elif char.startswith('u'):
+            char = char[1:]
+        else:
+            continue
+        if char:
+            try:
+                char_int = int(char, base=16)
+            except ValueError:
+                continue
+            try:
+                char = chr(char_int)
+            except ValueError:
+                continue
+            res.add(char)
+    return res
 
 
 if __name__ == '__main__':
@@ -13,11 +37,16 @@ if __name__ == '__main__':
         font_missing_json = json.load(fp)
     # ['font_name', 'font_pth', 'missing', 'fake']
     dst_json = dict()
-    s = '您今天吃了吗为打分卡哭了染发大杀四方抢位置婆牛网'
+
     for font_json in font_missing_json:
         font_json_new = dict()
-        font_json_new['path'] = font_json['font_pth']
-        font_json_new['charlist'] = list(s)
+        font_path = font_json['font_pth']
+        ttfont = TTFont(font_path)
+        font_list = list(processGlyphNames(ttfont.getGlyphNames()))
+        random.shuffle(font_list)
+        sample_cnt = min(200, len(font_list))
+        font_json_new['path'] = font_path
+        font_json_new['charlist'] = font_list[:sample_cnt]
         dst_json[font_json['font_name']] = font_json_new
     with open(args.dst_json, 'w', encoding='utf-8') as fp:
-        json.dump(dst_json, fp)
+        json.dump(dst_json, fp, ensure_ascii=False)
