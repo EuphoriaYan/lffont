@@ -29,7 +29,7 @@ if __name__ == '__main__':
     assert 'FZSong' in train_fonts
     val_fonts = fonts[:20]
     train_json = {k: dataset_json[k] for k in train_fonts}
-    avail_json = train_json.copy()
+    avail_json = dataset_json.copy()
     #  "seen_fonts", "unseen_fonts", "seen_unis", "unseen_unis"
     valid_json = {'seen_fonts': train_fonts, 'unseen_fonts': val_fonts}
 
