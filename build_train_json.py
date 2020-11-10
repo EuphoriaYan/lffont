@@ -22,25 +22,28 @@ if __name__ == '__main__':
     for font in fonts:
         if len(dataset_json[font]) == 0:
             dataset_json.pop(font)
+    fonts = set(dataset_json.keys())
 
-    fonts = list(dataset_json.keys())
-    random.shuffle(fonts)
-    train_fonts = fonts[20:]
-    assert 'FZSong' in train_fonts
-    val_fonts = fonts[:20]
-    train_json = {k: dataset_json[k] for k in train_fonts}
+    with open('meta/train_list.txt') as fp:
+        train_list = [s.strip() for s in fp if s.strip() in fonts]
+    with open('meta/val_list.txt') as fp:
+        val_list = [s.strip() for s in fp if s.strip() in fonts]
+
+    assert 'FZSong' in train_list
+
+    train_json = {k: dataset_json[k] for k in train_list}
     avail_json = dataset_json.copy()
     #  "seen_fonts", "unseen_fonts", "seen_unis", "unseen_unis"
-    valid_json = {'seen_fonts': train_fonts, 'unseen_fonts': val_fonts}
+    valid_json = {'seen_fonts': train_list, 'unseen_fonts': val_list}
 
     train_char_set = set()
-    for font in train_fonts:
+    for font in train_list:
         if font == 'FZSong':
             continue
         for char in dataset_json[font]:
             train_char_set.add(char)
     val_char_set = set()
-    for font in val_fonts:
+    for font in val_list:
         for char in dataset_json[font]:
             if char not in train_char_set:
                 val_char_set.add(char)
