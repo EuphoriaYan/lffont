@@ -19,6 +19,11 @@ if __name__ == '__main__':
         dataset_json = json.load(fp)
     # print(dataset_json.keys())
     fonts = list(dataset_json.keys())
+    for font in fonts:
+        if len(dataset_json[font]) == 0:
+            dataset_json.pop(font)
+
+    fonts = list(dataset_json.keys())
     random.shuffle(fonts)
     train_fonts = fonts[20:]
     val_fonts = fonts[:20]

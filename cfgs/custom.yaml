@@ -7,8 +7,8 @@ data_meta: data/fz1/fz1_train.json
 content_font: "方正宋黑简体.ttf"
 
 
-batch_size: 16
-n_workers: 8
+batch_size: 1
+n_workers: 0
 comb_iter: 800000
 fact_iter: 50000
 g_lr: 2e-4

@@ -36,7 +36,7 @@ def render(char, font, size=(128, 128), pad=20, pad_h=None):
     return img
 
 
-def save_lmdb(env_path, font_path_char_dict):
+def save_lmdb(env_path, font_path_char_dict, chn_set):
 
     env = lmdb.open(env_path, map_size=1024 ** 4)
     valid_dict = {}
@@ -48,6 +48,8 @@ def save_lmdb(env_path, font_path_char_dict):
         unilist = []
         for char in charlist:
             uni = hex(ord(char))[2:].upper()
+            if uni not in chn_set:
+                continue
             unilist.append(uni)
 
             char_img = render(char, ttf, pad=20)
@@ -69,14 +71,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--lmdb_path", help="path to save lmdb environment.")
     parser.add_argument("--json_path", help="path to save json file: {fname: [available unicodes list]}.")
-    parser.add_argument("--meta_path", help="path to meta file: {fname: {'path': /path/to/ttf.ttf, 'charlist': [available chars]}.")
+    parser.add_argument("--meta_path",
+                        help="path to meta file: {fname: {'path': /path/to/ttf.ttf, 'charlist': [available chars]}.")
+    parser.add_argument("--chn_json", default='meta/chn_decompose.json')
 
     args = parser.parse_args()
 
     with open(args.meta_path) as f:
         fpc_meta = json.load(f)
 
-    valid_dict = save_lmdb(args.lmdb_path, fpc_meta)
+    with open(args.chn_json) as f:
+        chn_json = json.load(f)
+        chn_set = set(chn_json.keys())
+
+    valid_dict = save_lmdb(args.lmdb_path, fpc_meta, chn_set)
     with open(args.json_path, "w") as f:
         json.dump(valid_dict, f)
 
