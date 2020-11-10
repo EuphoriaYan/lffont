@@ -54,7 +54,6 @@ HYQiHeiX1-85W.otf
 方正大标宋繁体GB12345-90(完整).TTF
 方正字迹-邢体草书繁体GB12345-90(完整).TTF
 方正兰亭大黑_GBK.ttf
-方正字迹-侃夫体行楷简繁GBK(部分).TTF
 方正晴朗体简繁DemiBoldGBK(部分).TTF
 方正宋刻本秀楷简体GB2312-80(完整).TTF
 方正仿宋_GBK(完整).TTF

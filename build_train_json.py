@@ -39,6 +39,8 @@ if __name__ == '__main__':
         if font == 'FZSong':
             continue
         for char in dataset_json[font]:
+            if char == '946B':
+                print(font)
             train_char_set.add(char)
     val_char_set = set()
     for font in val_list:
