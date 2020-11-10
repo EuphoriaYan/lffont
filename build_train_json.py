@@ -26,6 +26,7 @@ if __name__ == '__main__':
     fonts = list(dataset_json.keys())
     random.shuffle(fonts)
     train_fonts = fonts[20:]
+    assert 'FZSong' in train_fonts
     val_fonts = fonts[:20]
     train_json = {k: dataset_json[k] for k in train_fonts}
     avail_json = train_json.copy()
