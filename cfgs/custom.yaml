@@ -3,7 +3,7 @@ use_ddp: False
 
 work_dir: ./result
 data_path: data/fz1
-data_meta: meta/fz1.json
+data_meta: data/fz1/fz1_train.json
 content_font: "方正宋黑简体.ttf"
 
 
