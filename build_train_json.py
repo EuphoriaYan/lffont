@@ -29,8 +29,6 @@ if __name__ == '__main__':
     with open('meta/val_list.txt') as fp:
         val_list = [s.strip() for s in fp if s.strip() in fonts]
 
-    assert 'FZSong' in train_list
-
     train_json = {k: dataset_json[k] for k in train_list}
     avail_json = dataset_json.copy()
     #  "seen_fonts", "unseen_fonts", "seen_unis", "unseen_unis"
