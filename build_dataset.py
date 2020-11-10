@@ -85,8 +85,8 @@ def main():
         chn_set = set(chn_json.keys())
 
     valid_dict = save_lmdb(args.lmdb_path, fpc_meta, chn_set)
-    with open(args.json_path, "w") as f:
-        json.dump(valid_dict, f)
+    with open(args.json_path, "w", encoding='utf-8') as f:
+        json.dump(valid_dict, f, ensure_ascii=False)
 
 
 if __name__ == "__main__":
