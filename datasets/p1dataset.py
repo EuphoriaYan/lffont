@@ -182,11 +182,11 @@ class CombTestDataset(Dataset):
         for comp in trg_comp_ids:
             avail_style_uni = sorted(set.intersection(set(self.avails[font_name]),
                                                       set(self.comp_dict[comp]) - {trg_uni}))
+            if len(avail_style_uni):
+                style_uni = random.choice(avail_style_uni)
+                style_comp_ids = self.decompose_dict[style_uni]
 
-            style_uni = random.choice(avail_style_uni)
-            style_comp_ids = self.decompose_dict[style_uni]
-
-            style_unis.append(style_uni)
+                style_unis.append(style_uni)
 
         return style_unis, trg_comp_ids
 
