@@ -61,8 +61,8 @@ def save_lmdb(env_path, font_path_char_dict, chn_set):
 
             with env.begin(write=True) as txn:
                 txn.put(lmdb_key, img)
-
-        valid_dict[fname] = unilist
+        if len(unilist) > 0:
+            valid_dict[fname] = unilist
 
     return valid_dict
 

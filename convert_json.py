@@ -49,5 +49,9 @@ if __name__ == '__main__':
         font_json_new['path'] = font_path
         font_json_new['charlist'] = font_list[:sample_cnt]
         dst_json[font_json['font_name']] = font_json_new
+    content_font_path = 'content_font/FZSONG_ZhongHuaSongPlane00_2020051520200519101119.TTF'
+    fzsong_ttfont = TTFont(content_font_path)
+    dst_json['FZSong'] = {'path': content_font_path, 'charlist': list(processGlyphNames(fzsong_ttfont.getGlyphNames()))}
     with open(args.dst_json, 'w', encoding='utf-8') as fp:
         json.dump(dst_json, fp, ensure_ascii=False)
+
